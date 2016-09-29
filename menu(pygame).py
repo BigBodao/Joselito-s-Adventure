@@ -62,7 +62,7 @@ while True:
 			pygame.mixer.music.stop()#para a música do menu
 			mudafundo("Projeto/load.jpg")#tela de carregamento
 			time.sleep(3.5)#atraso no tempo de carregamento
-			mudafundo("Projeto/map.gif")#mudando o fundo para o mapa do jogo
+			mudafundo("Projeto/map.jpg")#mudando o fundo para o mapa do jogo
 			menu=False
 
 
