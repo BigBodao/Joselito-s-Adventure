@@ -5,7 +5,7 @@ import pygame, sys, time
 from pygame.locals import *
 
 pygame.init()
-windowSurface = pygame.display.set_mode((1240, 720), 0, 32)
+windowSurface = pygame.display.set_mode((1024, 768), 0, 32)
 pygame.display.set_caption("Joselito's Adventure")
 mainClock = pygame.time.Clock()
 
