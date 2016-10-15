@@ -38,7 +38,12 @@ def mudafundo(img):
 
 def printimg(mdl,x,y):#imagens na tela
 	img=pygame.image.load(mdl)#pasta/imagem
-    	windowSurface.blit(img,(x,y))#local na tela
+	windowSurface.blit(img,(x,y))#local na tela
+
+def savarq():
+	r=open("Joselito Demo.txt",'w')
+	r.write("obrigado por jogar a demo") #Agradece por jogar a demo
+	r.close()
 
 font = pygame.font.SysFont(None, 48)#fonte e tamanho
 font2=pygame.font.SysFont(None, 24)
@@ -70,6 +75,7 @@ while True:
 	for event in pygame.event.get():
 		if event.type == KEYUP:
 			if event.key == K_ESCAPE: #aperta esc para sair
+				savarq()
 				pygame.quit()
 				sys.exit()
 	if menu==True:	
@@ -115,6 +121,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
+						savarq()
 						pygame.quit()
 						sys.exit()
 					if hpm1<=0:
@@ -156,6 +163,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
+						savarq()
 						pygame.quit()
 						sys.exit()
 					if hpm2<=0:
@@ -279,6 +287,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
+						savarq()
 						pygame.quit()
 						sys.exit()
 					if hpb1<=0:
@@ -295,6 +304,7 @@ while True:
 					pygame.display.update()
 
 				if event.key == K_ESCAPE: #aperta esc para sair
+					savarq()
 					pygame.quit()
 					sys.exit()
 
