@@ -38,14 +38,14 @@ def mudafundo(img):
 
 def printimg(mdl,x,y):#imagens na tela
 	img=pygame.image.load(mdl)#pasta/imagem
-    	windowSurface.blit(img,(x,y))#local na tela
+	windowSurface.blit(img,(x,y))#local na tela
 
 def up():#level up
 	global exp, exp_max, lv, hp, hpmax, mana, manamax
 	if exp >= exp_max:
 		lv+= 1
 		exp = 0
-		exp_max = 10 * (lv + 1)
+		exp_max = 8 * (lv + 1)
 		hpmax = 10 * (lv + 1)
 		hp=hpmax
 		manamax=5 * (lv + 1)
@@ -53,7 +53,7 @@ def up():#level up
 
 def savarq():
 	r=open("Joselito Demo.txt",'w')
-	r.write("Obrigado por jogar a demo!") #Agradece por jogar a demo
+	r.write("obrigado por jogar a demo") #Agradece por jogar a demo
 	r.close()
 
 def potionv():
@@ -85,18 +85,17 @@ miss=1
 def nmapa():
 	mudafundo("Projeto/map.jpg")#mudando o fundo para o mapa do jogo
 	game=True#entra no mapa
-	drawText("Aperte enter para entrar na luta!", font3, windowSurface, (10), (0), WHITE)
-	drawText("LV: "+str(lv), font2, windowSurface, (10), (710), WHITE)
-	drawText("EXP: "+str(exp)+"/"+str(exp_max), font2, windowSurface, (10), (730), WHITE)
+	drawText("Aperte enter para entrar na luta!", font2, windowSurface, (10), (0), WHITE)
+	drawText("LV: " + str(lv), font2, windowSurface, (10), (30), WHITE)
+	drawText("EXP: " + str(exp), font2, windowSurface, (10), (50), WHITE)
 	pygame.display.update()
 
 while True:
 # check for the QUIT event
-
 	for event in pygame.event.get():
 		if event.type == KEYUP:
 			if event.key == K_ESCAPE: #aperta esc para sair
-				savarq()				
+				savarq()
 				pygame.quit()
 				sys.exit()
 	if menu==True:	
@@ -107,9 +106,9 @@ while True:
 			mudafundo("Projeto/map.jpg")#mudando o fundo para o mapa do jogo
 			menu=False#sai do menu
 			game=True#entra no game
-			drawText("Aperte enter para entrar na luta!", font3, windowSurface, (10), (0), WHITE)
-			drawText("LV: "+str(lv), font2, windowSurface, (10), (710), WHITE)
-			drawText("EXP: "+str(exp)+"/"+str(exp_max), font2, windowSurface, (10), (730), WHITE)
+			drawText("Aperte enter para entrar na luta!", font2, windowSurface, (10), (10), WHITE)
+			drawText("LV: "+str(lv), font2, windowSurface, (10), (30), WHITE)
+			drawText("EXP: "+str(exp), font2, windowSurface, (10), (50), WHITE)
 			pygame.display.update()
 
 	if game==True:
@@ -118,45 +117,49 @@ while True:
 				if event.key == K_RETURN: #aperta enter para entrar em uma luta
 					fght=True
 				
-				if fght==True and miss==1:#primeiro inimigo
-					mudafundo("Projeto/luta.jpg")#fundo da luta
+				if fght==True and miss==1:#primeiro monstro
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
 					printimg("Projeto/char.png",-180,200)#personagem jogador
 					printimg("Projeto/ene1.png", 630,170)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
-					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)
-					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)
-					drawText("F3 - Pots", font3, windowSurface,(60),(710), WHITE)
-					pygame.display.update()
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
 
-					if event.key == K_F3 and potv>0:
+					if event.key == K_F3 and potv > 0:
 						potionv()
-						drawText("Joselito usou uma pot de hp", font3, windowSurface,(20),(300), WHITE)
-						drawText(str(potv)+" pots de hp restantes", font3, windowSurface,(360),(710), WHITE)
-						matk=random.randint(1,3)
-						drawText("O inimigo causou "+str(matk), font3, windowSurface,(670),(300), WHITE)
-						hp-=matk#ataque do inimigo
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matk1=random.randint(1,3)
+						drawText("O inimigo causou " +str(matk1) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						hp-=matk1
 					if event.key == K_F1:
-						dmg = 5 * random.randint(1, 3)
-						matk1=random.randint(1,3)
-						drawText("Joselito causou "+str(dmg), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk1), font3, windowSurface,(670),(300), WHITE)
+						dmg = (3 * lv) * random.randint(1,3)
+						matk1 = random.randint(1,3)
+						drawText("Joselito causou " +str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(0.5)
+						drawText("Inimigo causou " + str(matk1) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
 						hpm1-=dmg#ataque do player
-						hp-=matk1#ataque do inimigo
-					if event.key == K_F2 and mana>0:
-						hab1 = 3 * random.randint(2,8)
-						matk1=random.randint(1,3)
-						drawText("Joselito causou "+str(hab1), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk1), font3, windowSurface,(670),(300), WHITE)
-						hpm1-=hab1#habilidade
-						hp-=matk1#ataque do inimigo
+						hp-=matk1#ataque do monstro
+						dmg = 5 * random.randint(1, 3)
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matk1 = random.randint(1,3)
+						drawText("Joselito causou " + str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(0.5)
+						drawText("Inimigo causou " + str(matk1)+ " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm1-=dmg#habilidade
+						hp-=matk1#ataque do monstro
 						mana-=1
-						
-					if mana<=0 and event.key == K_F2:
-						drawText("Sem Mana",font3,windowSurface,(360),(670),WHITE)
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
 					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
-					drawText("SP: "+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (640), WHITE)#mana
-					drawText("Inimigo HP: "+str(hpm1)+"/"+str(hpmaxm1), font3, windowSurface, (560), (570), WHITE)#vida do inimigo
-					if hp<0:
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpm1)+"/"+str(hpmaxm1), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
 						hp=0
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
@@ -166,71 +169,11 @@ while True:
 						sys.exit()
 					if hpm1<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
-						xpg=random.randint(1,3)
-						exp+=xpg
-						drawText("Exp ganha: "+str(xpg), font3, windowSurface, (300),(270), BLUE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
 						pygame.display.update()
-						time.sleep(2.0)
-						fght=False
-						miss+=1#próximo combate
-						nmapa()
-						hp=hpmax
-						up()
-
-					pygame.display.update()
-
-				if fght==True and miss==2:#segundo inimigo
-					mudafundo("Projeto/luta.jpg")#fundo da luta
-					printimg("Projeto/char.png",-180,200)#personagem jogador
-					printimg("Projeto/ene2.png", 630,100)#inimigo
-					printimg("Projeto/bar.png",0,0)#barra de ação
-					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)
-					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)
-					drawText("F3 - Pots", font3, windowSurface,(60),(710), WHITE)
-					pygame.display.update()
-
-					if event.key == K_F3 and potv>0:
-						potionv()
-						drawText("Joselito usou uma pot de hp", font3, windowSurface,(20),(300), WHITE)
-						drawText(str(potv)+" pots de hp restantes", font3, windowSurface,(360),(710), WHITE)
-						matk=random.randint(2,5)
-						drawText("O inimigo causou "+str(matk), font3, windowSurface,(670),(300), WHITE)
-						hp-=matk#ataque do inimigo
-					if event.key == K_F1:
-						dmg = 5 * random.randint(1, 3)
-						matk2=random.randint(2,5)
-						drawText("Joselito causou "+str(dmg), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk2), font3, windowSurface,(670),(300), WHITE)
-						hpm2-=dmg
-						hp-=matk2
-					if event.key == K_F2 and mana>0:
-						hab1 = 3 * random.randint(2,8)
-						matk2=random.randint(2,5)
-						drawText("Joselito causou "+str(hab1), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk2), font3, windowSurface,(670),(300), WHITE)
-						hpm2-=hab1
-						hp-=matk2
-						mana-=1
-					if mana<=0 and event.key == K_F2:
-						drawText("Sem Mana",font3,windowSurface,(360),(670),WHITE)
-					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)
-					drawText("SP: "+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (640), WHITE)
-					drawText("Inimigo HP: "+str(hpm2)+"/"+str(hpmaxm2), font3, windowSurface, (560), (570), WHITE)
-					if hp<0:
-						hp=0
-						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
-						pygame.display.update()
-						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
-					if hpm2<=0:
-						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
-						xpg=random.randint(2,7)
-						exp+=xpg
-						drawText("Exp ganha: "+str(xpg), font3, windowSurface, (300),(270), BLUE)
-						pygame.display.update()
-						time.sleep(2.0)
+						time.sleep(1.0)
 						fght=False
 						miss+=1
 						nmapa()
@@ -239,164 +182,49 @@ while True:
 
 					pygame.display.update()
 
-				if fght==True and miss==3:#terceiro inimigo
-					mudafundo("Projeto/luta.jpg")#fundo da luta
+				if fght==True and miss==2:#primeiro boss
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
 					printimg("Projeto/char.png",-180,200)#personagem jogador
-					printimg("Projeto/ene3.png", 400,10)#inimigo
+					printimg("Projeto/boss1.png", 500,200)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
-					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)
-					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)
-					drawText("F3 - Pots", font3, windowSurface,(60),(710), WHITE)
-					pygame.display.update()
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
 
-					if event.key == K_F3 and potv>0:
+					if event.key == K_F3 and potv > 0:
 						potionv()
-						drawText("Joselito usou uma pot de hp", font3, windowSurface,(20),(300), WHITE)
-						drawText(str(potv)+" pots de hp restantes", font3, windowSurface,(360),(710), WHITE)
-						matk=random.randint(3,8)
-						drawText("O inimigo causou "+str(matk), font3, windowSurface,(670),(300), WHITE)
-						hp-=matk#ataque do inimigo
-					if event.key == K_F1:
-						dmg = 5 * random.randint(1, 3)
-						matk3=random.randint(3,8)
-						drawText("Joselito causou "+str(dmg), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk3), font3, windowSurface,(670),(300), WHITE)
-						hpm3-=dmg
-						hp-=matk3
-					if event.key == K_F2 and mana>0:
-						hab1 = 3 * random.randint(2,8)
-						matk3=random.randint(3,8)
-						drawText("Joselito causou "+str(hab1), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk3), font3, windowSurface,(670),(300), WHITE)
-						hpm3-=hab1
-						hp-=matk3
-						mana-=1
-					if mana<=0 and event.key == K_F2:
-						drawText("Sem Mana",font3,windowSurface,(360),(670),WHITE)
-					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)
-					drawText("SP: "+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (640), WHITE)
-					drawText("Inimigo HP: "+str(hpm3)+"/"+str(hpmaxm3), font3, windowSurface, (560), (570), WHITE)
-					if hp<0:
-						hp=0
-						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
-						pygame.display.update()
-						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
-					if hpm3<=0:
-						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
-						xpg=random.randint(3,10)
-						exp+=xpg
-						drawText("Exp ganha: "+str(xpg), font3, windowSurface, (300),(270), BLUE)
-						pygame.display.update()
-						time.sleep(2.0)
-						fght=False
-						miss+=1
-						nmapa()
-						hp=hpmax
-						up()
-
-					pygame.display.update()
-
-				if fght==True and miss==4:#quarto inimigo
-					mudafundo("Projeto/luta.jpg")#fundo da luta
-					printimg("Projeto/char.png",-180,200)#personagem jogador
-					printimg("Projeto/ene4.png", 350,-180)#inimigo
-					printimg("Projeto/bar.png",0,0)#barra de ação
-					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)
-					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)
-					drawText("F3 - Pots", font3, windowSurface,(60),(710), WHITE)
-					pygame.display.update()
-
-					if event.key == K_F3 and potv>0:
-						potionv()
-						drawText("Joselito usou uma pot de hp", font3, windowSurface,(20),(300), WHITE)
-						drawText(str(potv)+" pots de hp restantes", font3, windowSurface,(360),(710), WHITE)
-						matk=random.randint(4,10)
-						drawText("O inimigo causou "+str(matk), font3, windowSurface,(670),(300), WHITE)
-						hp-=matk#ataque do inimigo
-					if event.key == K_F1:
-						dmg = 5 * random.randint(1, 3)
-						matk4=random.randint(4,10)
-						drawText("Joselito causou "+str(dmg), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk4), font3, windowSurface,(670),(300), WHITE)
-						hpm4-=dmg
-						hp-=matk4
-					if event.key == K_F2 and mana>0:
-						hab1 = 3 * random.randint(2,8)
-						matk4=random.randint(4,10)
-						drawText("Joselito causou "+str(hab1), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matk4), font3, windowSurface,(670),(300), WHITE)
-						hpm4-=hab1
-						hp-=matk4
-						mana-=1
-					if mana<=0 and event.key == K_F2:
-						drawText("Sem Mana",font3,windowSurface,(360),(670),WHITE)
-					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)
-					drawText("SP: "+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (640), WHITE)
-					drawText("Inimigo HP: "+str(hpm4)+"/"+str(hpmaxm4), font3, windowSurface, (560), (570), WHITE)
-					if hp<0:
-						hp=0
-						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
-						pygame.display.update()
-						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
-					if hpm4<=0:
-						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
-						xpg=random.randint(4,14)
-						exp+=xpg
-						drawText("Exp ganha: "+str(xpg), font3, windowSurface, (300),(270), BLUE)
-						pygame.display.update()
-						time.sleep(2.0)
-						fght=False
-						miss+=1
-						nmapa()
-						hp=hpmax
-						up()
-
-					pygame.display.update()
-
-				if fght==True and miss==5:#primeiro boss
-					mudafundo("Projeto/luta.jpg")#fundo da luta
-					printimg("Projeto/char.png",-180,200)#personagem jogador
-					printimg("Projeto/boss1.png", 460,-120)#inimigo
-					printimg("Projeto/bar.png",0,0)#barra de ação
-					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)
-					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)
-					drawText("F3 - Pots", font3, windowSurface,(60),(710), WHITE)
-					pygame.display.update()
-
-					if event.key == K_F3 and potv>0:
-						potionv()
-						drawText("Joselito usou uma pot de hp", font3, windowSurface,(20),(300), WHITE)
-						drawText(str(potv)+" pots de hp restantes", font3, windowSurface,(360),(710), WHITE)
-						matk=random.randint(5,20)
-						drawText("O inimigo causou "+str(matk), font3, windowSurface,(670),(300), WHITE)
-						hp-=matk#ataque do inimigo
-					if event.key == K_F1:
-						dmg = 5 * random.randint(1, 3)
-						matkb1=random.randint(5,20)
-						drawText("Joselito causou "+str(dmg), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matkb1), font3, windowSurface,(670),(300), WHITE)
-						hpb1-=dmg
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matkb1=random.randint(4,10)
+						drawText("O inimigo causou " +str(matkb1) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkb1
-					if event.key == K_F2 and mana>0:
-						hab1 = 3 * random.randint(2,8)
-						matkb1=random.randint(5,20)
-						drawText("Joselito causou "+str(hab1), font3, windowSurface,(20),(300), WHITE)
-						drawText("O inimigo causou "+str(matkb1), font3, windowSurface,(670),(300), WHITE)
-						hpb1-=hab1
-						hp-=matkb1
+					if event.key == K_F1:
+						dmg = (3 * lv) * random.randint(1,3)
+						matkb1 = random.randint(4,10)
+						drawText("Joselito causou " +str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb1) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpb1-=dmg#ataque do player
+						hp-=matkb1#ataque do monstro
+						dmg = 5 * random.randint(1, 3)
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matkb1 = random.randint(4,10)
+						drawText("Joselito causou " + str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb1)+ " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpb1-=dmg#habilidade
+						hp-=matkb1#ataque do monstro
 						mana-=1
-					if mana<=0 and event.key == K_F2:
-						drawText("Sem Mana",font3,windowSurface,(360),(670),WHITE)
-					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)
-					drawText("SP: "+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (640), WHITE)
-					drawText("Inimigo HP: "+str(hpb1)+"/"+str(hpmaxb1), font3, windowSurface, (560), (570), WHITE)
-					if hp<0:
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
+					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpb1)+"/"+str(hpmaxb1), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
 						hp=0
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
@@ -406,11 +234,11 @@ while True:
 						sys.exit()
 					if hpb1<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
-						xpg=random.randint(10,30)
-						exp+=xpg
-						drawText("Exp ganha: "+str(xpg), font3, windowSurface, (300),(270), BLUE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
 						pygame.display.update()
-						time.sleep(2.0)
+						time.sleep(1.0)
 						fght=False
 						miss+=1
 						nmapa()
@@ -419,11 +247,392 @@ while True:
 
 					pygame.display.update()
 
+				if fght==True and miss==3:#segundo inimigo
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
+					printimg("Projeto/char.png",-180,200)#personagem jogador
+					printimg("Projeto/ene2.png", 630,170)#inimigo
+					printimg("Projeto/bar.png",0,0)#barra de ação
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
+
+					if event.key == K_F3 and potv > 0:
+						potionv()
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matk2=random.randint(3,6)
+						drawText("O inimigo causou " +str(matk2) + "de dano", font3, windowSurface, (670), (300), WHITE)
+						hp-=matk2
+					if event.key == K_F1:
+						dmg = (3 * lv) * random.randint(1,3)
+						matk2 = random.randint(3,6)
+						drawText("Joselito causou " +str(dmg) + "de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matk2) + "de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm2-=dmg#ataque do player
+						hp-=matk2#ataque do monstro
+						dmg = 5 * random.randint(1, 3)
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matk2 = random.randint(3,6)
+						drawText("Joselito causou " + str(dmg) + "de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matk2)+ "de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm2-=dmg#habilidade
+						hp-=matk2#ataque do monstro
+						mana-=1
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
+					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpm2)+"/"+str(hpmaxm2), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
+						hp=0
+						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
+						pygame.display.update()
+						time.sleep(1.5)
+						savarq()
+						pygame.quit()
+						sys.exit()
+					if hpm2<=0:
+						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
+						pygame.display.update()
+						time.sleep(1.0)
+						fght=False
+						miss+=1
+						nmapa()
+						hp=hpmax
+						up()
+					pygame.display.update()
+
+				if fght==True and miss==4:#segundo boss
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
+					printimg("Projeto/char.png",-180,200)#personagem jogador
+					printimg("Projeto/boss2.png", 630,170)#inimigo
+					printimg("Projeto/bar.png",0,0)#barra de ação
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
+
+					if event.key == K_F3 and potv > 0:
+						potionv()
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matk2=random.randint(6,10)
+						drawText("O inimigo causou " +str(matkb2) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						hp-=matkb2
+					if event.key == K_F1:
+						dmg = (3 * lv) * random.randint(1,3)
+						matkb2 = random.randint(6,10)
+						drawText("Joselito causou " +str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb2) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpb2-=dmg#ataque do player
+						hp-=matkb2#ataque do monstro
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matkb2 = random.randint(6,10)
+						drawText("Joselito causou " + str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb2)+ " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpb2-=dmg#habilidade
+						hp-=matkb2#ataque do monstro
+						mana-=1
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
+					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpb2)+"/"+str(hpmaxb2), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
+						hp=0
+						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
+						pygame.display.update()
+						time.sleep(1.5)
+						savarq()
+						pygame.quit()
+						sys.exit()
+					if hpb2<=0:
+						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
+						pygame.display.update()
+						time.sleep(1.0)
+						fght=False
+						miss+=1
+						nmapa()
+						hp=hpmax
+						up()
+					pygame.display.update()
+
+				if fght==True and miss==5:#terceiro inimigo
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
+					printimg("Projeto/char.png",-180,200)#personagem jogador
+					printimg("Projeto/ene3.png", 630,170)#inimigo
+					printimg("Projeto/bar.png",0,0)#barra de ação
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
+
+					if event.key == K_F3 and potv > 0:
+						potionv()
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matkm3=random.randint(7,9)
+						drawText("O inimigo causou " +str(matkm3) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						hp-=matkm3
+					if event.key == K_F1:
+						dmg = (3 * lv) * random.randint(1,3)
+						matkm3 = random.randint(7,9)
+						drawText("Joselito causou " +str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkm3) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm3-=dmg#ataque do player
+						hp-=matkm3#ataque do monstro
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matkm3 = random.randint(7,9)
+						drawText("Joselito causou " + str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkm3)+ " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm3-=dmg#habilidade
+						hp-=matkm3#ataque do monstro
+						mana-=1
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
+					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpm3)+"/"+str(hpmaxm3), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
+						hp=0
+						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
+						pygame.display.update()
+						time.sleep(1.5)
+						savarq()
+						pygame.quit()
+						sys.exit()
+					if hpm3<=0:
+						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
+						pygame.display.update()
+						time.sleep(1.0)
+						fght=False
+						miss+=1
+						nmapa()
+						hp=hpmax
+						up()
+					pygame.display.update()
+
+				if fght==True and miss==6:#terceiro boss
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
+					printimg("Projeto/char.png",-180,200)#personagem jogador
+					printimg("Projeto/boss3.png", 630,170)#inimigo
+					printimg("Projeto/bar.png",0,0)#barra de ação
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
+
+					if event.key == K_F3 and potv > 0:
+						potionv()
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matkb3=random.randint(10,15)
+						drawText("O inimigo causou " +str(matkb3) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						hp-=matkb3
+					if event.key == K_F1:
+						dmg = (3 * lv) * random.randint(1,3)
+						matkb3 = random.randint(10,15)
+						drawText("Joselito causou " +str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb3) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpb3-=dmg#ataque do player
+						hp-=matkb3#ataque do monstro
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matkb3 = random.randint(10,15)
+						drawText("Joselito causou " + str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb3)+ " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpb3-=dmg#habilidade
+						hp-=matkb3#ataque do monstro
+						mana-=1
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
+					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpb3)+"/"+str(hpmaxb3), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
+						hp=0
+						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
+						pygame.display.update()
+						time.sleep(1.5)
+						savarq()
+						pygame.quit()
+						sys.exit()
+					if hpb3<=0:
+						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
+						pygame.display.update()
+						time.sleep(1.0)
+						fght=False
+						miss+=1
+						nmapa()
+						hp=hpmax
+						up()
+					pygame.display.update()
+
+				if fght==True and miss==7:#quarto inimigo
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
+					printimg("Projeto/char.png",-180,200)#personagem jogador
+					printimg("Projeto/ene4.png", 630,170)#inimigo
+					printimg("Projeto/bar.png",0,0)#barra de ação
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
+
+					if event.key == K_F3 and potv > 0:
+						potionv()
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matkm4=random.randint(11,13)
+						drawText("O inimigo causou " +str(matkm4) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						hp-=matkm4
+					if event.key == K_F1:
+						dmg = (3 * lv) * random.randint(1,3)
+						matkm4 = random.randint(11,13)
+						drawText("Joselito causou " +str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkm4) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm4-=dmg#ataque do player
+						hp-=matkm4#ataque do monstro
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matkm4 = random.randint(11,13)
+						drawText("Joselito causou " + str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkm4)+ " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm4-=dmg#habilidade
+						hp-=matkm4#ataque do monstro
+						mana-=1
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
+					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpm4)+"/"+str(hpmaxm4), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
+						hp=0
+						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
+						pygame.display.update()
+						time.sleep(1.5)
+						savarq()
+						pygame.quit()
+						sys.exit()
+					if hpm4<=0:
+						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
+						pygame.display.update()
+						time.sleep(1.0)
+						fght=False
+						miss+=1
+						nmapa()
+						hp=hpmax
+						up()
+					pygame.display.update()
+
+				if fght==True and miss==8:#quarto boss
+					mudafundo("Projeto/bkg_1.png")#fundo da luta
+					printimg("Projeto/char.png",-180,200)#personagem jogador
+					printimg("Projeto/boss4.png", 630,170)#inimigo
+					printimg("Projeto/bar.png",0,0)#barra de ação
+					drawText("F1 - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
+					drawText("F2 - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
+					drawText("F3 - Potion", font3, windowSurface, (60), (670), WHITE)#opção para usar poção
+					pygame.display.update()#atualizar a tela
+
+					if event.key == K_F3 and potv > 0:
+						potionv()
+						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						matkb4=random.randint(15,20)
+						drawText("O inimigo causou " +str(matkb4) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						hp-=matkb4
+					if event.key == K_F1:
+						dmg = (3 * lv) * random.randint(1,3)
+						matkb4 = random.randint(15,20)
+						drawText("Joselito causou " +str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb4) + " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpb4-=dmg#ataque do player
+						hp-=matkb4#ataque do monstro
+					if event.key == K_F2 and mana > 0:
+						dmg = (4 * lv) * random.randint(3, 5)
+						matkb4 = random.randint(15,20)
+						drawText("Joselito causou " + str(dmg) + " de dano", font3, windowSurface, (20), (300), WHITE)
+						time.sleep(1.5)
+						drawText("Inimigo causou " + str(matkb4)+ " de dano", font3, windowSurface, (670), (300), WHITE)
+						time.sleep(0.5)
+						hpm4-=dmg#habilidade
+						hp-=matkb4#ataque do monstro
+						mana-=1
+					if mana <= 0 and event.key == K_F2:
+						drawText("Joselito está sem mana", font3, windowSurface, (20), (300), WHITE)
+					drawText("HP: "+str(hp)+"/"+str(hpmax), font3, windowSurface, (360), (570), WHITE)#vida do jogador
+					drawText("SP"+str(mana)+"/"+str(manamax), font3, windowSurface, (360), (600), WHITE)#mana do jogador
+					drawText("Inimigo HP: "+str(hpb4)+"/"+str(hpmaxb4), font3, windowSurface, (560), (570), WHITE)#vida do jogador
+					if hp<=0:
+						hp=0
+						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
+						pygame.display.update()
+						time.sleep(1.5)
+						savarq()
+						pygame.quit()
+						sys.exit()
+					if hpb4<=0:
+						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
+						xp =random.randint(5, 20)
+						exp+=xp
+						drawText("Experiência ganha: "+str(xp), font3, windowSurface, (300), (270), BLUE)
+						pygame.display.update()
+						time.sleep(1.0)
+						fght=False
+						miss+=1
+						nmapa()
+						hp=hpmax
+						up()
+					pygame.display.update()
+
 				if event.key == K_ESCAPE: #aperta esc para sair
-					savarq()					
+					savarq()
 					pygame.quit()
 					sys.exit()
 
 pygame.display.update() #atualiza tela
 
 sys.stdin.read(1)#não fecha a tela
+
+
