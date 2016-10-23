@@ -134,14 +134,14 @@ while True:
 					printimg("Projeto/ene1.png", 630,170)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matkm1 = random.randint(1,3)
 						drawText(inim[0]+" causou " +str(matkm1) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkm1
@@ -200,14 +200,14 @@ while True:
 					printimg("Projeto/boss1.png", 0,-30)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matkb1=random.randint(4,10)
 						drawText(boss[0]+" causou " +str(matkb1) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkb1
@@ -266,14 +266,14 @@ while True:
 					printimg("Projeto/ene2.png", 0,-20)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matk2=random.randint(3,6)
 						drawText(inim[1]+" causou " +str(matk2) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matk2
@@ -331,14 +331,14 @@ while True:
 					printimg("Projeto/boss2.png", 0,-50)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matk2=random.randint(6,10)
 						drawText(boss[1]+" causou " +str(matkb2) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkb2
@@ -396,14 +396,14 @@ while True:
 					printimg("Projeto/ene3.png", 0,-10)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matkm3=random.randint(7,9)
 						drawText(inim[2]+" causou " +str(matkm3) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkm3
@@ -461,14 +461,14 @@ while True:
 					printimg("Projeto/boss2.png", 0,0)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matkb3=random.randint(10,15)
 						drawText(boss[2]+" causou " +str(matkb3) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkb3
@@ -526,14 +526,14 @@ while True:
 					printimg("Projeto/ene4.png", 0,-50)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matkm4=random.randint(11,13)
 						drawText(inim[3]+" causou " +str(matkm4) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkm4
@@ -591,14 +591,14 @@ while True:
 					printimg("Projeto/boss2.png", 0,0)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
-					drawText("S - Habilidades", font3, windowSurface,(60),(640), WHITE)#opção para usar habilidade
-					drawText("D - Potion", font3, windowSurface, (60), (710), WHITE)#opção para usar poção
+					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
+					drawText("D - Potion", font3, windowSurface, (60), (675), WHITE)#opção para usar poção
 					pygame.display.update()#atualizar a tela
 
 					if event.key == K_d and potv > 0:
 						potionv()
 						drawText("Joselito usou uma potion de HP", font3, windowSurface, (20), (300), WHITE)
-						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (710), WHITE)
+						drawText(str(potv)+"potions de hp restante", font3, windowSurface, (360), (675), WHITE)
 						matkb4=random.randint(15,20)
 						drawText(boss[3]+" causou " +str(matkb4) + " de dano", font3, windowSurface, (670), (300), WHITE)
 						hp-=matkb4

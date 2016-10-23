@@ -4,7 +4,7 @@
 import random
 
 inim=["Zumbi","Slime","Vampiro","Orc"]
-boss=["Cavaleiro","Ent","Troll","Dragão"]
+boss=["Cavaleiro","Ent","Lobisomen","Dragão"]
 potv=10
 danoj=[]
 danojh=[]
@@ -46,7 +46,7 @@ matkb1=random.randint(4,10)
 hpb2=45 #hp do boss
 hpmaxb2=45 #hp max do boss
 matkb2=random.randint(6,10)
-#troll
+#lobisomen
 hpb3=80 #hp do boss
 hpmaxb3=80 #hp max do boss
 matkb3=random.randint(10,15)
