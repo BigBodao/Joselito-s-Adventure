@@ -1,3 +1,0 @@
-Obrigado por jogar a demo!
-Maior dano normal: 12
-Maior dano de habilidade: 18
