@@ -42,14 +42,15 @@ def printimg(mdl,x,y):#imagens na tela
 
 def up():#level up
 	global exp, exp_max, lv, hp, hpmax, mana, manamax
-	if exp >= exp_max:
+	if exp == exp_max or exp > exp_max:
 		lv+= 1
 		exp_max = 8 * (lv + 1) + exp_max
-		hpmax = 10 * (lv + 1)
+		hpmax = 8 * (lv + 1)
 		hp=hpmax
-		manamax=5 * (lv + 1)
+		manamax=3 * (lv + 1)
 		mana=manamax
 		up()
+
 
 def savarq():
 	danoalt=danoj[0]
@@ -94,12 +95,25 @@ fght=False
 miss=1
 
 def nmapa():
+	pygame.mixer.music.stop()
 	mudafundo("Projeto/map.jpg")#mudando o fundo para o mapa do jogo
 	game=True#entra no mapa
 	drawText("Aperte enter para entrar na luta!", font2, windowSurface, (10), (0), WHITE)
 	drawText("LV: " + str(lv), font2, windowSurface, (10), (30), WHITE)
 	drawText("EXP: " + str(exp)+"/"+str(exp_max), font2, windowSurface, (10), (50), WHITE)
 	pygame.display.update()
+
+def gameover():
+	pygame.mixer.music.stop()
+	drawText("JOSELITO MOOOOOOOOOORRRRREEEUUUUU",font2, windowSurface,(384),(513), WHITE)
+	time.sleep(2.5)
+	mudafundo("Projeto/game_over.png")#colocando tela de gameover
+	pygame.display.update()
+	time.sleep(2.0)
+	savarq()
+	pygame.quit()
+	sys.exit()
+
 
 while True:
 # check for the QUIT event
@@ -126,6 +140,9 @@ while True:
 		for event in pygame.event.get():
 			if event.type == KEYDOWN:
 				if event.key == K_RETURN: #aperta enter para entrar em uma luta
+					pygame.mixer.music.load("Projeto/battle.mp3")
+					pygame.mixer.music.set_volume(70)
+					pygame.mixer.music.play(-1, 0.0)
 					fght=True
 				
 				if fght==True and miss==1:#primeiro monstro
@@ -176,9 +193,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpm1<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
@@ -242,9 +257,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpb1<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
@@ -257,7 +270,6 @@ while True:
 						nmapa()
 						hp=hpmax
 						up()
-
 					pygame.display.update()
 
 				if fght==True and miss==3:#segundo inimigo
@@ -308,9 +320,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpm2<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
@@ -373,9 +383,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpb2<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
@@ -438,9 +446,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpm3<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
@@ -458,7 +464,7 @@ while True:
 				if fght==True and miss==6:#terceiro boss
 					mudafundo("Projeto/bkg_3.png")#fundo da luta
 					printimg("Projeto/char.png",-180,200)#personagem jogador
-					printimg("Projeto/boss2.png", 0,0)#inimigo
+					printimg("Projeto/boss3.png", 0,0)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
 					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
@@ -503,9 +509,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpb3<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
@@ -568,9 +572,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpm4<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
@@ -588,7 +590,7 @@ while True:
 				if fght==True and miss==8:#quarto boss
 					mudafundo("Projeto/bkg_4.png")#fundo da luta
 					printimg("Projeto/char.png",-180,200)#personagem jogador
-					printimg("Projeto/boss2.png", 0,0)#inimigo
+					printimg("Projeto/boss4.png", 0,0)#inimigo
 					printimg("Projeto/bar.png",0,0)#barra de ação
 					drawText("A - Atacar", font3, windowSurface,(60),(570), WHITE)#opção para atacar
 					drawText("S - Habilidades", font3, windowSurface,(60),(605), WHITE)#opção para usar habilidade
@@ -633,9 +635,7 @@ while True:
 						drawText("Joselito morreu!", font, windowSurface, (300),(200), RED)
 						pygame.display.update()
 						time.sleep(1.5)
-						savarq()
-						pygame.quit()
-						sys.exit()
+						gameover()
 					if hpb4<=0:
 						drawText("Inimigo vencido!", font, windowSurface, (300),(200), WHITE)
 						xp =random.randint(5, 20)
